@@ -123,7 +123,7 @@ struct ProfileView: View {
                     }
                 }
                 
-                // Добавлена секция для отладки
+              
                 Section(header: Text("Debug")) {
                     Button(action: { showingClearAlert = true }) {
                         HStack {
@@ -152,13 +152,13 @@ struct ProfileView: View {
     }
     
     private func clearAllData() {
-        // Очищаем все данные из UserDefaults
+       
         UserDefaults.standard.removeObject(forKey: "users")
         UserDefaults.standard.removeObject(forKey: "spaces")
         UserDefaults.standard.removeObject(forKey: "notes")
         UserDefaults.standard.removeObject(forKey: "currentUser")
         
-        // Выходим из аккаунта
+      
         dataManager.logout()
         
         print("🧹 All data cleared")
