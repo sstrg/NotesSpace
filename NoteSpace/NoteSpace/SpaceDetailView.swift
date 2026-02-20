@@ -77,7 +77,7 @@ struct SpaceDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    // Информация о пространстве
+                   
                     Menu {
                         Text("Members: \(space.memberIds.count)")
                         Text("Invite Code: \(space.inviteCode)")
@@ -102,7 +102,7 @@ struct SpaceDetailView: View {
                         Image(systemName: "info.circle")
                     }
                     
-                    // Добавление заметки
+                    
                     Button(action: { showingAddNote = true }) {
                         Image(systemName: "plus")
                     }
