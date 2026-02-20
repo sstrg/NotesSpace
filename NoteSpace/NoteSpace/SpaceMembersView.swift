@@ -31,7 +31,7 @@ struct SpaceMembersView: View {
                         
                         Spacer()
                         
-                        // Показываем роль пользователя
+                      
                         if member.id == space.creatorId {
                             Label("Creator", systemImage: "crown.fill")
                                 .font(.caption)
@@ -42,11 +42,11 @@ struct SpaceMembersView: View {
                                 .foregroundColor(.blue)
                         }
                         
-                        // Кнопка действий (только для создателя или админа)
+                        
                         if canManageMember(member) {
                             Menu {
                                 if space.creatorId == dataManager.currentUser?.id {
-                                    // Создатель может назначать/снимать админов
+                                 
                                     if !space.adminIds.contains(member.id) {
                                         Button(action: { makeAdmin(member) }) {
                                             Label("Make Admin", systemImage: "shield")
@@ -58,7 +58,7 @@ struct SpaceMembersView: View {
                                     }
                                 }
                                 
-                                // Кнопка удаления (для создателя и админов)
+                               
                                 if member.id != space.creatorId {
                                     Button(role: .destructive, action: { selectedMember = member }) {
                                         Label("Remove from Space", systemImage: "person.fill.xmark")
@@ -99,17 +99,17 @@ struct SpaceMembersView: View {
     private func canManageMember(_ member: User) -> Bool {
         guard let currentUserId = dataManager.currentUser?.id else { return false }
         
-        // Нельзя управлять самим собой (кроме выхода)
+      
         if member.id == currentUserId {
             return false
         }
         
-        // Создатель может управлять всеми
+     
         if space.creatorId == currentUserId {
             return true
         }
         
-        // Админ может управлять обычными участниками
+       
         if space.adminIds.contains(currentUserId) && !space.adminIds.contains(member.id) && member.id != space.creatorId {
             return true
         }
