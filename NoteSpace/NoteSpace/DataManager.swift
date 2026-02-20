@@ -24,11 +24,11 @@ class DataManager: ObservableObject {
         loadData()
     }
     
-    // MARK: - Authentication
+   
     func register(email: String, username: String, password: String) -> Bool {
         var users = getUsers()
         
-        // Проверяем существование пользователя
+       
         if users.contains(where: { $0.email == email }) {
             print("❌ User already exists: \(email)")
             return false
@@ -38,7 +38,7 @@ class DataManager: ObservableObject {
             id: UUID().uuidString,
             email: email,
             username: username,
-            password: password, // Сохраняем пароль
+            password: password, 
             spaceIds: []
         )
         
@@ -46,23 +46,23 @@ class DataManager: ObservableObject {
         saveUsers(users)
         print("✅ User registered: \(email)")
         
-        // Создаем личное пространство
+       
         let personalSpace = createSpace(
             name: "\(username)'s Space",
             description: "Personal space",
             creatorId: newUser.id
         )
         
-        // Обновляем пользователя
+        
         var updatedUser = newUser
         updatedUser.spaceIds.append(personalSpace.id)
         updateUser(updatedUser)
         
-        // Устанавливаем текущего пользователя
+      
         currentUser = updatedUser
         saveCurrentUser(updatedUser)
         
-        // Загружаем пространства
+       
         loadUserSpaces()
         
         return true
@@ -71,7 +71,7 @@ class DataManager: ObservableObject {
     func login(email: String, password: String) -> Bool {
         let users = getUsers()
         
-        // Проверяем email и пароль
+      
         if let user = users.first(where: { $0.email == email && $0.password == password }) {
             print("✅ User logged in: \(email)")
             currentUser = user
@@ -92,7 +92,6 @@ class DataManager: ObservableObject {
         notes = []
     }
     
-    // MARK: - Space Management
     func createSpace(name: String, description: String, creatorId: String) -> Space {
         var spaces = getSpaces()
         
@@ -128,12 +127,10 @@ class DataManager: ObservableObject {
             return false
         }
         
-        // Добавляем пользователя в пространство
         spaces[index].memberIds.append(userId)
         saveSpaces(spaces)
         print("✅ User added to space: \(spaces[index].name)")
         
-        // Обновляем пользователя
         var users = getUsers()
         if let userIndex = users.firstIndex(where: { $0.id == userId }) {
             users[userIndex].spaceIds.append(spaces[index].id)
@@ -149,7 +146,6 @@ class DataManager: ObservableObject {
         return true
     }
     
-    // MARK: - Member Management
     func getSpaceMembers(spaceId: String) -> [User] {
         let allUsers = getUsers()
         guard let space = getSpaces().first(where: { $0.id == spaceId }) else {
@@ -273,7 +269,6 @@ class DataManager: ObservableObject {
         return ""
     }
     
-    // MARK: - Note Management
     func createNote(title: String, content: String, spaceId: String, authorId: String, authorName: String) {
         var notes = getNotes()
         
@@ -327,7 +322,6 @@ class DataManager: ObservableObject {
         loadUserSpaces()
     }
     
-    // MARK: - Data Loading
     func loadUserSpaces() {
         guard let user = currentUser else {
             print("⚠️ No current user")
@@ -345,7 +339,6 @@ class DataManager: ObservableObject {
         print("📊 Loaded \(spaces.count) spaces for user \(user.username)")
     }
     
-    // MARK: - Private Methods
     private func generateInviteCode() -> String {
         let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<6).map { _ in letters.randomElement()! })
