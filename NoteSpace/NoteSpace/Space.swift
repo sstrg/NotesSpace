@@ -12,7 +12,7 @@ struct Space: Identifiable, Codable {
     var name: String
     var description: String
     var creatorId: String
-    var adminIds: [String]  // Добавляем массив администраторов
+    var adminIds: [String]  
     var memberIds: [String]
     var noteIds: [String]
     var inviteCode: String
