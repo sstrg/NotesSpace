@@ -21,7 +21,7 @@ struct InviteView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
-                    // Название пространства
+                   
                     VStack(spacing: 8) {
                         Text(space.name)
                             .font(.title2)
@@ -33,7 +33,7 @@ struct InviteView: View {
                     }
                     .padding(.top)
                     
-                    // QR-код
+                   
                     VStack(spacing: 15) {
                         if let qrCodeImage = qrCodeImage {
                             qrCodeImage
@@ -57,7 +57,7 @@ struct InviteView: View {
                             .multilineTextAlignment(.center)
                     }
                     
-                    // Код приглашения
+                   
                     VStack(spacing: 10) {
                         Text("Or use code:")
                             .font(.headline)
@@ -80,7 +80,7 @@ struct InviteView: View {
                         }
                     }
                     
-                    // Информация о пространстве
+                   
                     VStack(spacing: 8) {
                         HStack {
                             Image(systemName: "person.2")
@@ -142,7 +142,7 @@ struct InviteView: View {
     private func copyInviteCode() {
         UIPasteboard.general.string = space.inviteCode
         
-        // Простая обратная связь
+        
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
     }
